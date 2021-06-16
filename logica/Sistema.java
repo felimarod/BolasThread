@@ -18,6 +18,13 @@ public class Sistema {
         alto = 100;
     }
     
+    public void iniciarSimulacion() throws Exception{
+        crearBolas();
+        for (int i = 0; i < listaBolas.size(); i++) {
+            Bola b = (Bola) listaBolas.get(i);
+            b.correr();
+        }
+    }  
     
     private void crearBolas() throws Exception{
         if (numeroBolas == 0) {
@@ -31,14 +38,6 @@ public class Sistema {
         }        
     }
     
-    public void iniciarSimulacion() throws Exception{
-        crearBolas();
-        for (int i = 0; i < listaBolas.size(); i++) {
-            Bola b = (Bola) listaBolas.get(i);
-            b.start();
-        }
-    }
-
     public void detenerSimulacion() throws Exception{
         if (numeroBolas == 0) {
             throw new Exception("No hay nada que detener");

@@ -3,6 +3,7 @@ package presentacion;
 
 import java.awt.Canvas;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 
@@ -59,6 +60,7 @@ public class Vista extends javax.swing.JFrame {
         lienzo = new java.awt.Canvas();
         sliBolitas = new javax.swing.JSlider();
         lblMensaje = new javax.swing.JLabel();
+        caja = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -86,6 +88,10 @@ public class Vista extends javax.swing.JFrame {
         getContentPane().add(lblMensaje);
         lblMensaje.setBounds(20, 320, 230, 50);
 
+        caja.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bola 1", "Bola 2", "Bola 3", "Bola 4", "Bola 5", "Bola 6", "Bola 7", "Bola 8", "Bola 9", "Bola 10" }));
+        getContentPane().add(caja);
+        caja.setBounds(80, 400, 107, 35);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -93,6 +99,7 @@ public class Vista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnimar;
+    private javax.swing.JComboBox<String> caja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblMensaje;
     private java.awt.Canvas lienzo;
@@ -101,5 +108,10 @@ public class Vista extends javax.swing.JFrame {
 
     private void capturarEventos() {
         btnAnimar.addActionListener(getControl());
+        caja.addActionListener(getControl());
+    }
+
+    public JComboBox<String> getCaja() {
+        return caja;
     }
 }

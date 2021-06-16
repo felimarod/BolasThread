@@ -2,20 +2,24 @@ package logica;
 
 import java.awt.Color;
 
-public class Bola extends Thread {
+public class Bola implements Runnable{
 
+    private String name;
+    
     private int posX, posY;
-    private String nombre;
     private int w, h; //limites del lienzo
-    private int dirX, dirY;  // -1 decrementa, 1 incrementa
+    private double dirX, dirY;  // -1 decrementa, 1 incrementa
     private Color color;
-
-    public static int diametro = 30;
+    private int diametro = 30;
+    
     public static Color colores[] = {Color.BLUE, Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW, Color.LIGHT_GRAY};
-    private boolean moviendo = false;
+    private boolean moviendo = true;
+    
+    private boolean showingName = false;
+    private boolean selected = false;
 
     public Bola(String n, int w, int h) {
-        nombre = n;        
+        setName(n);        
         this.w = w;
         this.h = h;
         posX = (int) (Math.random() * w);
@@ -23,10 +27,18 @@ public class Bola extends Thread {
         posY = (int) (Math.random() * h);
         if(posY > h - diametro) posY -= diametro;
         color = colores[(int) (Math.random() * 10)];
-        dirX = ((Math.random() * 100) < 50 ? 1 : -1);
-        dirY = ((Math.random() * 100) < 50 ? 1 : -1);
+        dirX = ((Math.random() * 100) < 50 ? 2 : -2);
+        dirY = ((Math.random() * 100) < 50 ? 2 : -2);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public final void setName(String name) {
+        this.name = name;
+    }
+    
     public int getPosX() {
         return posX;
     }
@@ -63,6 +75,10 @@ public class Bola extends Thread {
         return color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    
     public boolean isMoviendo() {
         return moviendo;
     }
@@ -71,16 +87,33 @@ public class Bola extends Thread {
         this.moviendo = moviendo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public double getDirX() {
+        return dirX;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public double getDirY() {
+        return dirY;
+    }
+    
+    public void setDirX(double dirX) {
+        this.dirX = dirX;
+    }
+
+    public void setDirY(double dirY) {
+        this.dirY = dirY;
+    }
+
+    public boolean isShowingName() {
+        return showingName;
+    }
+
+    public void setShowingName(boolean showingName) {
+        this.showingName = showingName;
     }
     
     // Funcionalidad
-    public void mover() {
+    @Override
+    public void run() {
         while (moviendo) {
             posX += dirX;
             posY += dirY;
@@ -90,21 +123,36 @@ public class Bola extends Thread {
             if (posY + diametro >= h || posY <= 0) {
                 dirY *= -1;
             }
-            esperar(2);
+            esperar(4);
         }
     }
-
-    @Override
-    public void run() {
+    
+    public void correr(){
         moviendo = true;
-        mover();
+        new Thread(this).start();
     }
-
+    
     public void esperar(int tiempoMS) {
         try {
             Thread.sleep(tiempoMS);
         } catch (InterruptedException ex) {
         }
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+    
+    public void setSelected(boolean selected){
+        this.selected = selected;
+    }
+
+    public void setDiametro(int diametro) {
+        this.diametro = diametro;
+    }
+
+    public int getDiametro() {
+        return diametro;
     }
 
 }
