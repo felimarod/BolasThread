@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Sistema {
     
     private int numeroBolas;
-    private ArrayList listaBolas;
+    private ArrayList<Bola> listaBolas;
     private int ancho, alto;
 
     public Sistema() {
@@ -21,7 +21,7 @@ public class Sistema {
     public void iniciarSimulacion() throws Exception{
         crearBolas();
         for (int i = 0; i < listaBolas.size(); i++) {
-            Bola b = (Bola) listaBolas.get(i);
+            Bola b = listaBolas.get(i);
             b.correr();
         }
     }  
@@ -30,7 +30,7 @@ public class Sistema {
         if (numeroBolas == 0) {
             throw new Exception("No hay bolas!");
         }
-        listaBolas = new ArrayList();
+        listaBolas = new ArrayList<Bola>();
         
         for (int i = 0; i < numeroBolas; i++) {
             Bola b = new Bola("Bola " + (i+1), ancho, alto);            
@@ -43,7 +43,7 @@ public class Sistema {
             throw new Exception("No hay nada que detener");
         }
         for (int i = 0; i < listaBolas.size(); i++) {
-            Bola b = (Bola) listaBolas.get(i);
+            Bola b = listaBolas.get(i);
             b.setMoviendo(false);  // Forzamos la finalización del hilo
         }
         listaBolas = null;
@@ -57,11 +57,11 @@ public class Sistema {
         this.numeroBolas = numeroBolas;
     }
 
-    public ArrayList getListaBolas() {
+    public ArrayList<Bola> getListaBolas() {
         return listaBolas;
     }
 
-    public void setListaBolas(ArrayList listaBolas) {
+    public void setListaBolas(ArrayList<Bola> listaBolas) {
         this.listaBolas = listaBolas;
     }
 

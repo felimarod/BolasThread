@@ -26,7 +26,7 @@ public class Launcher{
     
     
     public static void main(String[] args){
-        Launcher mi = new Launcher();
+        new Launcher();
     }
     
 }
